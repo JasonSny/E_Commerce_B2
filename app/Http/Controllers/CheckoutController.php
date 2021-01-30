@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\ProductOrder;
 use DateTime;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -85,6 +86,7 @@ class CheckoutController extends Controller
         $order->save();
 
         if ($data['paymentIntent']['status'] === 'succeeded') {
+            $this->updateStock();
             Cart::destroy();
             Session::flash('success', 'Votre commande a bien été effectué.');
             return response()->json(['success' => 'Payment Intent Succeeded']);
@@ -142,5 +144,14 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function updateStock()
+    {
+        foreach (Cart::content() as $item) {
+            $product = Product::find($item->model->id);
+
+            $product->update(['stock' => $product->stock - $item->qty]);
+        }
     }
 }

@@ -5,14 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+    <meta name="theme-color" content="#7952b3">
+
     @yield('extra_meta')
 
     <title> Kingween </title>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     @yield('extra_script')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -25,8 +30,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{ asset('css/products.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-
-    <meta name="theme-color" content="#7952b3">
 </head>
 
 <body>
@@ -42,16 +45,8 @@
                     <a class="blog-header-logo text-dark"> Kingween </a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    <a class="link-secondary" href="#" aria-label="Search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
-                            viewBox="0 0 24 24">
-                            <title>Search</title>
-                            <circle cx="10.5" cy="10.5" r="7.5" />
-                            <path d="M21 21l-5.2-5.2" />
-                        </svg>
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+                    @include('partials.search')
+                    @include('partials.auth')
                 </div>
             </div>
         </header>
@@ -77,6 +72,18 @@
                 {{ session('watchOut') }}
             </div>
         @endif
+
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul class="mb-0 mt-0">
+                    @foreach ($errors->all() as $error)
+                        <li> {{ $error }} </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
         <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
             <div class="col-md-6 px-0">
                 <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
@@ -86,6 +93,9 @@
             </div>
         </div>
 
+        @if (request()->input('q'))
+            <h6> {{ $products->total() }} Résultat(s) de la recherche " {{ request()->q }}"</h6>
+        @endif
         <div class="row mb-2">
             @yield('content')
         </div>

@@ -85,6 +85,8 @@ class CartController extends Controller
      */
     public function update(Request $request, $rowId)
     {
+        $data = $request->json()->all();
+        
         $vali = Validator::make($request->all(), [
             'qty' => 'required|numeric|between:1,10'
         ]);
@@ -92,6 +94,11 @@ class CartController extends Controller
         if ($vali->fails()) {
             Session::flash('watchOut', ' La quantité du produit ne doit pas dépasser 10.');
             return response()->json(['error' => 'Cart Quantity not UP']);
+        }
+
+        if($data['qty'] > $data['stock']) {
+            Session::flash('watchOut', ' La quantité du produit est indisponible.');
+            return response()->json(['error' => 'Product quantity FULL']);
         }
 
         $data = $request->json()->all();

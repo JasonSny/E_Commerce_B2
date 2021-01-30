@@ -19,16 +19,16 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="p-2 px-3 text-uppercase">Product</div>
+                                                <div class="p-2 px-3 text-uppercase"> Produit </div>
                                             </th>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Price</div>
+                                                <div class="py-2 text-uppercase"> Prix </div>
                                             </th>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Quantity</div>
+                                                <div class="py-2 text-uppercase"> Quantité </div>
                                             </th>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Remove</div>
+                                                <div class="py-2 text-uppercase"> Supprimer </div>
                                             </th>
                                         </tr>
                                     </thead>
@@ -52,9 +52,11 @@
                                                         {{ $product->subtotal() }} €</strong></td>
                                                 <td class="border-0 align-middle">
                                                     <select name="qty" id="qty" data-id="{{ $product->rowId }}"
-                                                        class="custom-select">
+                                                        data-stock="{{ $product->model->stock }}" class="custom-select">
                                                         @for ($i = 1; $i <= 10; $i++)
-                                                            <option value="{{ $i }}" {{ $i == $product->qty ? 'selected' : '' }} >{{ $i }}</option>
+                                                            <option value="{{ $i }}"
+                                                                {{ $i == $product->qty ? 'selected' : '' }}>{{ $i }}
+                                                            </option>
                                                         @endfor
                                                     </select>
                                                 </td>
@@ -77,7 +79,7 @@
                     </div>
 
                     <div class="row py-5 p-4 bg-white rounded shadow-sm">
-                        <div class="col-lg-6">            
+                        <div class="col-lg-6">
                             <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for
                                 seller</div>
                             <div class="p-4">
@@ -121,7 +123,8 @@
         Array.from(selects).forEach((element) => {
             element.addEventListener('change', function() {
 
-                var rowId = this.getAttribute('data-id');
+                var rowId = element.getAttribute('data-id');
+                var stock = element.getAttribute('data-stock');
                 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
                 fetch(
@@ -134,7 +137,8 @@
                         },
                         method: 'patch',
                         body: JSON.stringify({
-                            qty: this.value
+                            qty: this.value,
+                            stock: stock
                         })
                     }
                 ).then((data) => {

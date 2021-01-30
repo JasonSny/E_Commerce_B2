@@ -24,7 +24,26 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
+        $stock = $product->stock === 0 ? 'Indisponible' : 'Disponible';
 
-        return view('products.show')->with('product', $product);
+        return view('products.show', [
+            'product' => $product,
+            'stock' => $stock
+        ]);
+    }
+
+    public function search()
+    {
+        request()->validate([
+            'x' => 'required|min:3'
+        ]);
+
+        $x = request()->input('x');
+
+        $products = Product::where('title', 'like', "%$x%")  //% permet de retrouver sans que ça soit exact le SEARCH
+        ->orWhere('description', 'like', "%$x%")
+        ->paginate(6);
+
+        return view('products.search')->with('products', $products);
     }
 }
