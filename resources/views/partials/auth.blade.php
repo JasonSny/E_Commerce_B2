@@ -1,3 +1,15 @@
+<style>
+    .nav-link {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+</style>
+
 @guest
     <li class="nav-item">
         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -19,7 +31,7 @@
 
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
+                {{ __('Déconnexion') }}
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

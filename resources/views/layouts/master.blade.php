@@ -39,13 +39,13 @@
                 <div class="col-4 pt-1">
                     <a class="text-muted" href="{{ route('cart.index') }}"> Panier <span
                             class="badge badge-pill badge-dark"> {{ Cart::count() }} </span></a>
+                    @include('partials.search')
                 </div>
                 <div class="col-4 text-center">
                     <img class="logo_Kingween" src=" {{ asset('images/kingween.png') }} ">
                     <a class="blog-header-logo text-dark"> Kingween </a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    @include('partials.search')
                     @include('partials.auth')
                 </div>
             </div>
@@ -58,6 +58,7 @@
                     <a class="p-2 text-muted"
                         href="{{ route('products.index', ['categorie' => $category->slug]) }}">{{ $category->name }}</a>
                 @endforeach
+                <a class="p-2 text-muted" href="{{ route('products.index') }}">TOUS</a>
             </nav>
         </div>
 
@@ -83,14 +84,31 @@
             </div>
         @endif
 
-
-        <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                    efficiently about what’s most interesting in this post’s contents.</p>
-                <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+        <div id="carouselExampleIndicators" class="carousel slide mt-5 mb-5" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{ asset('images/rust.jpg') }}" alt="Première Slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ asset('images/csgo.jpg') }}" alt="Deuxième slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ asset('images/pubg.jpg') }}" alt="Troisième slide">
+                </div>
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only"> Précédent </span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only"> Suivant </span>
+            </a>
         </div>
 
         @if (request()->input('q'))
@@ -102,7 +120,6 @@
     </main><!-- /.container -->
 
     <footer class="blog-footer">
-        <a href="#">Back to top</a>
     </footer>
 
     @yield('extra_js')
