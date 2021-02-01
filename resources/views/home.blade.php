@@ -15,6 +15,7 @@
                         @endif
 
                         @foreach (Auth()->user()->orders as $order)
+                        <br>
                             <div class="card">
                                 <div class="card-header">
                                     Commande passée le
@@ -27,12 +28,10 @@
                                         <div> Nom du produit : {{ $product[0] }}</div>
                                         <div> Prix : {{ getPrice($product[1]) }} </div>
                                         <div> Quantité : {{ $product[2] }}</div>
-                                        <br>  
                                     @endforeach
                                 </div>
                             </div>
                         @endforeach
-                        {{ __('You are logged in!') }}
                     </div>
                 </div>
             </div>

@@ -10,18 +10,18 @@
 
 @section('content')
     <div class="col-md-12">
-        <h1> Page de paiement </h1>
+        <h2> Page de paiement </h2>
+        <br>
         <div class="row">
             <div class="col-md-6">
                 <form action="{{ route('checkout.store') }}" method="POST" id="payment-form" class="my-4">
                     <div id="card-element">
-                        <!-- Elements will create input elements here -->
                     </div>
-
-                    <!-- We'll put the error messages in this element -->
                     <div id="card-errors" role="alert"></div>
-
-                    <button class="btn btn-success mt-4" id="submit"> Procéder au paiement ({{ getPrice(Cart::total()) }})</button>
+                    <br>
+                    <br>
+                    <br>
+                    <button class="btn btn-warning mt-4" id="submit"><strong>  Procéder au paiement ({{ getPrice(Cart::total()) }}) </strong></button>
                 </form>
             </div>
         </div>

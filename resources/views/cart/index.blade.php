@@ -19,7 +19,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="p-2 px-3 text-uppercase"> Produit </div>
+                                                <div class="p-2 px-3 text-uppercase"> Produit(s) </div>
                                             </th>
                                             <th scope="col" class="border-0 bg-light">
                                                 <div class="py-2 text-uppercase"> Prix </div>
@@ -40,11 +40,12 @@
                                                         <img src="{{ $product->model->image }}" alt="" width="70"
                                                             class="img-fluid rounded shadow-sm">
                                                         <div class="ml-3 d-inline-block align-middle">
-                                                            <h5 class="mb-0"> <a href="#"
+                                                            <h5 class="mb-0"> 
+                                                                <a href="#"
                                                                     class="text-dark d-inline-block align-middle">
-                                                                    {{ $product->model->title }} </a></h5>
-                                                            <span
-                                                                class="text-muted font-weight-normal font-italic d-block">Category:</span>
+                                                                    {{ $product->model->title }} 
+                                                                </a>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </th>
@@ -55,7 +56,8 @@
                                                         data-stock="{{ $product->model->stock }}" class="custom-select">
                                                         @for ($i = 1; $i <= 10; $i++)
                                                             <option value="{{ $i }}"
-                                                                {{ $i == $product->qty ? 'selected' : '' }}>{{ $i }}
+                                                                {{ $i == $product->qty ? 'selected' : '' }}>
+                                                                {{ $i }}
                                                             </option>
                                                         @endfor
                                                     </select>
@@ -65,7 +67,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-dark"><i
+                                                        <button type="submit" class="btn btn-dark ml-4"><i
                                                                 class="fa fa-trash"></i></button>
                                                     </form>
                                                 </td>
@@ -77,28 +79,13 @@
                             <!-- End -->
                         </div>
                     </div>
-
-                    <div class="row py-5 p-4 bg-white rounded shadow-sm">
-                        <div class="col-lg-6">
-                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for
-                                seller</div>
-                            <div class="p-4">
-                                <p class="font-italic mb-4">If you have some information for the seller you can leave them
-                                    in the box below</p>
-                                <textarea name="" cols="30" rows="2" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary
+                    <div class="row py-6 p-4 bg-white rounded shadow-sm">
+                        <div class="col-lg-12">
+                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold"> Résumé de la
+                                commande
                             </div>
                             <div class="p-4">
-                                <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you
-                                    have entered.</p>
                                 <ul class="list-unstyled mb-4">
-                                    {{-- <li
-                                        class="d-flex justify-content-between py-3 border-bottom"><strong
-                                            class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li>
-                                    --}}
                                     <li class="d-flex justify-content-between py-3 border-bottom"><strong
                                             class="text-muted">Total</strong>
                                         <h5 class="font-weight-bold">{{ getPrice(Cart::total()) }}</h5>
@@ -108,12 +95,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div>
-    @else
-        <h4> Votre panier est vide </h4>
+        @else
+            <h4> Votre panier est vide </h4>
     @endif
 @endsection
 

@@ -16,14 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('products.index'));
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
+Route::get('/index', 'EditUserController@index')->name('indexUser');
+Route::get('/editUser', 'EditUserController@edit')->name('editUser');
+Route::post('/editUser', 'EditUserController@update')->name('updateUser');
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function () {
     Route::resource('users', 'UsersController');
 });
 
@@ -33,17 +37,17 @@ Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
 Route::get('/search', 'ProductController@search')->name('products.search');
 
 //Cart Routes
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::post('/panier/ajouter', 'CartController@store')->name('cart.store');
     Route::get('/panier', 'CartController@index')->name('cart.index');
     Route::patch('panier/{rowId}', 'CartController@update')->name('cart.update');
-    Route::delete('/panier/{rowId}', 'CartController@destroy')->name('cart.destroy');   
+    Route::delete('/panier/{rowId}', 'CartController@destroy')->name('cart.destroy');
 });
 
 
 //Checkout
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
     Route::post('/paiement', 'CheckoutController@store')->name('checkout.store');
-    Route::get('/merci', 'CheckoutController@thanks')->name('checkout.thanks');    
+    Route::get('/merci', 'CheckoutController@thanks')->name('checkout.thanks');
 });
