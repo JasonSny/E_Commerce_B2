@@ -1,22 +1,23 @@
 <style>
     .nav-link {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 15px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        color: #636b6f;
+        padding: 0 25px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
 </style>
 
 @guest
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+        <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
     </li>
     @if (Route::has('register'))
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            <a class="nav-link" href="{{ route('register') }}">{{ __("S'enregister ") }}</a>
         </li>
     @endif
 @else
@@ -30,18 +31,27 @@
 
             <a class="dropdown-item" href="{{ route('indexUser') }}"> Mon compte </a>
             <a class="dropdown-item" href="{{ route('home') }}"> Mes commandes </a>
+            
+            @can('manage-users')
+                <a class="dropdown-item" href="{{ route('admin.users.index') }}"> Commande(s) des utilisateurs </a>
+            @endcan
+
+            @can('manage-users')
+                <a class="dropdown-item" href="{{ route('admin.products.index') }}"> Jeux </a>
+            @endcan
+
+            @can('manage-users')
+                <a class="dropdown-item" href="{{ route('admin.users.index') }}"> Liste des Utilisateurs </a>
+            @endcan
 
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                                                 document.getElementById('logout-form').submit();">
                 {{ __('Déconnexion') }}
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-            @can('manage-users')
-                <a class="dropdown-item" href="{{ route('admin.users.index') }}"> Liste des Utilisateurs </a>
-            @endcan
         </div>
     </li>
 @endguest

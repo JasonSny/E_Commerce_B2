@@ -17,7 +17,8 @@ class ProductsTableSeeder extends Seeder
         for ($i=0; $i < 10; $i++)
         {
             Product::create([
-                'title' => $faker->sentence(4),
+                'title' => $faker->randomElement(['GTA', 'Rust', 'PUBG', 'CSGO', ' Call Of Duty : Modern Warfare'
+                , 'Doom', 'Battlefield V', 'Skyrim', 'Tetris', 'monkaS Game', 'Dora']),
                 'slug' => $faker->slug,
                 'subtitle' => $faker->sentence(4),
                 'description' => $faker->text,

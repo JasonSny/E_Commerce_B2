@@ -5,14 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Modifier <strong> {{ $user->name }}</strong></div>
+                    <div class="card-header">Modifier : <strong> {{ $user->name }}</strong></div>
                     <div class="card-body">
                         <form action="{{ route('updateUser', [
                             'id' => $user->id
                         ]) }}" method="POST">
                             @csrf
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label">{{ __('Name') }}</label>
+                                <label for="name" class="col-md-4 col-form-label">{{ __('Nom') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lastName" class="col-md-4 col-form-label">{{ __('lastName') }}</label>
+                                <label for="lastName" class="col-md-4 col-form-label">{{ __('Prénom') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="lastName" type="text" class="form-control @error('lastName') is-invalid @enderror"
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="birthday" class="col-md-4 col-form-label">{{ __('birthday') }}</label>
+                                <label for="birthday" class="col-md-4 col-form-label">{{ __('Date de Naissance') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror"
@@ -72,7 +72,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary"> Modifier les informations </button>
+                            <button type="submit" class="btn btn-dark w-100"> Modifier les informations </button>
                         </form>
                     </div>
                 </div>

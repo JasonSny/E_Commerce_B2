@@ -9,8 +9,6 @@
 
     @yield('extra_meta')
 
-    <title> Kingween </title>
-
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     @yield('extra_script')
@@ -43,7 +41,7 @@
                 </div>
                 <div class="col-4 text-center">
                     <img class="logo_Kingween" src=" {{ asset('images/kingween.png') }} ">
-                    <a class="blog-header-logo text-dark"> Kingween </a>
+                    <a href="{{ route('products.index') }}" class="blog-header-logo text-dark"> Kingween </a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     @include('partials.auth')

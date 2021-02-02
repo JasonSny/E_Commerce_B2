@@ -93,7 +93,7 @@ class EditUserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return redirect()->route('index');
+        return redirect()->route('indexUser');
     }
 
     /**

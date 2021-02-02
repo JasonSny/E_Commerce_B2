@@ -20,7 +20,7 @@
                     <p class="mb-auto"> {{ $product->subtitle }}</p>
                     <strong class="mb-auto"> {{ $product->getPrice() }}</strong>
                     <a href="{{ route('products.show', $product->slug) }}" class="stretched-link btn btn-dark"> Voir le
-                        prodruit</a>
+                        produit</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                     <img src="{{ $product->image }}" alt="">

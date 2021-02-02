@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Lise des Utilisateurs') }}</div>
+                <div class="card-header">{{ __('Liste des Utilisateurs') }}</div>
 
                 <div class="card-body">
                     <table class="table">
@@ -27,14 +27,14 @@
                                 <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                 <td>
                                     @can('edit-users')
-                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-primary"> Editer </button></a>
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-dark"> Editer </button></a>
                                     @endcan
                                     
                                     @can('delete-users')
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-warning"> Supprimer </button>
+                                        <button type="submit" class="btn btn-danger"> Supprimer </button>
                                     </form>
                                     @endcan
                                 </td>
